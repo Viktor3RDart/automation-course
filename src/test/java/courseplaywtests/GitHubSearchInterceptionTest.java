@@ -1,4 +1,4 @@
-package courseplayw;
+package courseplaywtests;
 
 import base.BaseTest;
 import com.microsoft.playwright.Page;
