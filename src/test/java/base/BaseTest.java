@@ -20,7 +20,7 @@ public class BaseTest {
         // Важно: используем разные порты для каждого экземпляра
         browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
                 .setHeadless(false)
-                .setArgs(List.of( "--auto-open-devtools-for-tabs", "--start-maximized"
+                .setArgs(List.of( "--start-maximized"//"--auto-open-devtools-for-tabs",
                 )));
 
         context = browser.newContext(new Browser.NewContextOptions()
