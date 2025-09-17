@@ -1,27 +1,56 @@
 package base;
 
 import com.microsoft.playwright.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+import java.nio.file.Paths;
+import java.util.List;
 
 public class BaseTest {
-    Playwright playwright;
-    Browser browser;
-    BrowserContext context;
-    public Page page;
+    protected Playwright playwright;
+    protected Browser browser;
+    protected BrowserContext context;
+    protected Page page;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeMethod
+    public void setup() {
         playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-        context = browser.newContext();
+
+        // Важно: используем разные порты для каждого экземпляра
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
+                .setHeadless(false)
+                .setArgs(List.of(
+                        "--remote-debugging-port=" + (9222 + Thread.currentThread().getId() % 1000),
+                        "--start-maximized",
+                        "--auto-open-devtools-for-tabs"
+                )));
+
+        context = browser.newContext(new Browser.NewContextOptions()
+                .setViewportSize(1920, 1080)
+                .setLocale("ru-RU")
+                .setPermissions(java.util.List.of("geolocation")));
+
+        context.tracing().start(new Tracing.StartOptions()
+                .setScreenshots(true)
+                .setSnapshots(true)
+                .setSources(true));
+
         page = context.newPage();
     }
 
-
-
-    @AfterEach
-    void tearDown() {
-        playwright.close();
+    @AfterMethod
+    public void tearDown(ITestResult result) {
+        context.tracing().stop(new Tracing.StopOptions()
+                .setPath((Paths.get("traces/" + result.getName() + ".zip"))));
+        try {
+            if (page != null) page.close();
+            if (context != null) context.close();
+            if (browser != null) browser.close();
+            if (playwright != null) playwright.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
