@@ -19,7 +19,7 @@ public class BaseTest {
     @BeforeMethod
     public void setup() {
         // Создаем директорию для артефактов с текущей датой/временем
-        artifactsDir = "testsVideos/" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+        artifactsDir = "testsData/" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
         // Создаем playwright
         playwright = Playwright.create();
         // Создаем и определяем параметры browser
