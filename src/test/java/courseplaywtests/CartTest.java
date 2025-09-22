@@ -94,9 +94,7 @@ public class CartTest extends BaseTest {
       Allure.step("Ждем загрузки страницы товаров", () -> {
         page.waitForSelector(".inventory_item");
       });
-      Allure.step("Добавляем первый товар в корзину", () -> {
-        page.click(".btn_inventory:first-of-type");
-      });
+      Allure.step("Добавляем первый товар в корзину", () -> page.click(".btn_inventory:first-of-type"));
       Allure.step("Делаем скриншот корзины после добавления товара", () -> {
         page.locator(".shopping_cart_container").screenshot(
                 new Locator.ScreenshotOptions()
