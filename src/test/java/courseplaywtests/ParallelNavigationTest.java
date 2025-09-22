@@ -27,12 +27,6 @@ public class ParallelNavigationTest {
 
     @AfterAll
     static void tearDownAll() {
-        browserThread.get().close();
-        playwrightThread.get().close();
-    }
-
-    @AfterEach
-    void closeContext() {
         browserThread.get().newContext().close();
         browserThread.get().close();
         playwrightThread.get().close();
