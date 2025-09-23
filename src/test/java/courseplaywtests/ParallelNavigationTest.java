@@ -19,6 +19,7 @@ public class ParallelNavigationTest {
 
     private static ThreadLocal<Playwright> playwrightThread;
     private static ThreadLocal<Browser> browserThread;
+    BrowserContext context;
 
     @BeforeAll
     static void setupAll() {
@@ -30,6 +31,11 @@ public class ParallelNavigationTest {
         browserThread.get().newContext().close();
         browserThread.get().close();
         playwrightThread.get().close();
+    }
+
+    @AfterEach
+    void tearDown() {
+        context.close();
     }
 
     static Stream<Arguments> provideBrowserAndPathBasicPages() {
@@ -71,7 +77,7 @@ public class ParallelNavigationTest {
     }
 
     private void testPage(String path) {
-        BrowserContext context = browserThread.get().newContext();
+        context = browserThread.get().newContext();
         Page page = context.newPage();
         String url = "https://the-internet.herokuapp.com" + path;
         System.out.println("Testing: " + url + " in " + browserThread.get().browserType().name());
