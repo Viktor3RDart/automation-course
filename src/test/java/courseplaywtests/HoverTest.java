@@ -1,6 +1,7 @@
 package courseplaywtests;
 
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.LoadState;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,8 +25,8 @@ public class HoverTest {
     @Test
     void testHoverProfiles() {
         page.navigate("https://the-internet.herokuapp.com/hovers");
+        page.waitForLoadState(LoadState.LOAD);
         Locator figures = page.locator(".figure");
-        figures.waitFor();
         for (int i = 0; i < figures.count(); i++) {
             Locator figure = figures.nth(i);
 
