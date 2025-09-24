@@ -19,13 +19,13 @@ public class HoverTest {
     @BeforeEach
     void setup() {
         page = browser.newContext().newPage();
-        page.navigate("https://the-internet.herokuapp.com/hovers");
     }
 
     @Test
     void testHoverProfiles() {
+        page.navigate("https://the-internet.herokuapp.com/hovers");
         Locator figures = page.locator(".figure");
-
+        figures.waitFor();
         for (int i = 0; i < figures.count(); i++) {
             Locator figure = figures.nth(i);
 
