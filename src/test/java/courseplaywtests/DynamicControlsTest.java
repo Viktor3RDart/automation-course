@@ -4,6 +4,7 @@ import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.*;
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 
 public class DynamicControlsTest {
@@ -24,8 +25,10 @@ public class DynamicControlsTest {
         page.navigate("https://the-internet.herokuapp.com/dynamic_controls");
         page.waitForLoadState(LoadState.LOAD);
         // Находим чекбокс с атрибутом type="checkbox".
-        Locator removeCheckbox = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Remove"));
+        Locator checkbox = page.locator("input[type='checkbox']");
+        assertTrue(checkbox.isVisible(), "Чекбокс должен быть видимым");
         // Кликаем на кнопку "Remove".
+        Locator removeCheckbox = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Remove"));
         removeCheckbox.click();
         // Ожидаем исчезновения чекбокса.
         removeCheckbox.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.HIDDEN));
