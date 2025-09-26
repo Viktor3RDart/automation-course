@@ -14,7 +14,7 @@ public class DynamicContentPage extends BasePage{
         this.contentLocator = page.locator(".large-10.columns").first();
     }
 
-    @Step("Переходим неа страницу {url}")
+    @Step("Переходим на страницу {url}")
     public void navigate() {
         page.navigate(url);
     }
