@@ -1,9 +1,13 @@
 version: '3.8'
-volumes:
-  - ./screenshots:/app/screenshots
+
 services:
   playwright:
     build: .
     environment:
       - BASE_URL=https://the-internet.herokuapp.com
-    command: mvn test -Dtest=StatusCodeApiUiTest
+      - HEADLESS=true
+      - PLAYWRIGHT_HEADLESS=true
+    command: mvn test -Dtest=DynamicControlsTest -Dplaywright.headless=true -e
+    volumes:
+      - ./screenshots:/app/screenshots
+    shm_size: 2g

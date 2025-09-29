@@ -2,12 +2,16 @@ FROM mcr.microsoft.com/playwright/java:v1.50.0-jammy
 
 WORKDIR /app
 
-# Копируем только необходимые файлы в правильном порядке
+# Устанавливаем xvfb для запуска headed браузеров
+RUN apt-get update && \
+    apt-get install -y xvfb && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY pom.xml .
 COPY src ./src
 
-# Пропускаем фазу ресурсов при установке зависимостей
-RUN mvn dependency:go-offline -B -DskipTests -Dmaven.main.skip=true -Dmaven.resources.skip=true
+RUN mvn dependency:go-offline -B
 
-# Команда для запуска тестов (пропускаем компиляцию ресурсов)
-CMD ["mvn", "test", "-Dtest=statusCodeApiUiTest", "-Dmaven.resources.skip=true", "-e"]
+# Принудительно устанавливаем headless режим через системные свойства
+CMD ["xvfb-run", "mvn", "test", "-Dtest=DynamicControlsTest", "-Dplaywright.headless=true", "-e"]
