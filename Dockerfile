@@ -27,7 +27,7 @@ RUN apt-get update && \
 RUN mvn dependency:go-offline -B
 
 # Устанавливаем браузеры Playwright
-RUN playwright install --with-deps
+# RUN playwright install --with-deps
 
 # Создаем non-root пользователя для безопасности
 RUN useradd -m playwrightuser
