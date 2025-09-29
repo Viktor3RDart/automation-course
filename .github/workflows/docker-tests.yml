@@ -6,7 +6,7 @@ on:
     paths:
       - 'Dockerfile'
       - 'docker-compose.yml'
-      - 'src/test/java/courseplaywtests/StatusCodeApiUiTest.java'
+      - 'src/test/java/courseplaywtests/DynamicControlsTest.java'
 
 jobs:
   docker-tests:
@@ -24,7 +24,7 @@ jobs:
             --shm-size=2g \
             -e BASE_URL=https://the-internet.herokuapp.com \
             playwright-junit-test \
-            mvn test -Dtest=StatusCodeApiUiTest -e -X
+            mvn test -Dtest=DynamicControlsTest -e -X
 
       - name: Upload test reports
         if: always()
