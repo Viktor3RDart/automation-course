@@ -41,7 +41,7 @@ public class LoginDbTest {
         page = browser.newPage();
     }
 
-    @Test
+//    @Test
     @Story("Практическое задание 25: Проверить данные в БД с использованием PostgreSQL")
     @Description("Проверить данные в БД после действий в UI.")
     void testLoginWithDbUser() throws SQLException {

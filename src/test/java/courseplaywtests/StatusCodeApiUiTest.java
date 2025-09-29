@@ -11,6 +11,7 @@ public class StatusCodeApiUiTest {
     private APIRequestContext apiRequest;
     private Browser browser;
     private Page page;
+    private final String BaseUrl = System.getenv("BASE_URL");
 
     @BeforeEach
     void setup() {
@@ -19,7 +20,7 @@ public class StatusCodeApiUiTest {
         // Настройка API контекста
         apiRequest = playwright.request().newContext(
                 new APIRequest.NewContextOptions()
-                        .setBaseURL("https://the-internet.herokuapp.com")
+                        .setBaseURL(BaseUrl)
         );
 
         // Настройка браузера
@@ -32,7 +33,7 @@ public class StatusCodeApiUiTest {
         page = browser.newPage();
 
         // Навигация на страницу статус кодов один раз
-        page.navigate("https://the-internet.herokuapp.com/status_codes");
+        page.navigate(BaseUrl + "/status_codes");
         page.waitForSelector("div.example");
     }
 
@@ -62,7 +63,7 @@ public class StatusCodeApiUiTest {
                 res -> res.url().endsWith("/status_codes/" + code),
                 () -> link.click(new Locator.ClickOptions().setTimeout(15000))
         );
-        page.navigate("https://the-internet.herokuapp.com/status_codes");
+        page.navigate(BaseUrl + "/status_codes");
         page.waitForSelector("div.example");
         return response.status();
     }
