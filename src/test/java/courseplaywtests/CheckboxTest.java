@@ -2,8 +2,9 @@ package courseplaywtests;
 
 import com.microsoft.playwright.*;
 import io.qameta.allure.*;
+import org.junit.jupiter.api.*;
 import org.testng.Assert;
-import org.testng.annotations.*;
+
 
 import java.io.ByteArrayInputStream;
 
@@ -15,7 +16,7 @@ public class CheckboxTest {
     private BrowserContext context;
     private Page page;
 
-    @BeforeMethod
+    @BeforeEach
     @Step("Инициализация браузера и контекста")
     void setUp() {
         playwright = Playwright.create();
@@ -100,7 +101,7 @@ public class CheckboxTest {
                         "Чекбокс 2: " + (checkbox2.isChecked() ? "выбран" : "не выбран"));
     }
 
-    @AfterMethod
+    @AfterEach
     @Step("Закрытие ресурсов")
     void tearDown() {
         try {

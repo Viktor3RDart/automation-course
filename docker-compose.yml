@@ -7,7 +7,7 @@ services:
       - BASE_URL=https://the-internet.herokuapp.com
       - HEADLESS=true
       - PLAYWRIGHT_HEADLESS=true
-    command: mvn test -Dtest=DynamicControlsTest -Dplaywright.headless=true -e
+    command: mvn test -Dtest=CheckboxTest -Dplaywright.headless=true -e
     volumes:
       - ./screenshots:/app/screenshots
     shm_size: 2g
