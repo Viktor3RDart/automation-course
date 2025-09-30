@@ -1,11 +1,17 @@
 package courseplaywtests;
 
 import com.microsoft.playwright.*;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@Epic("Playwright Java: Автоматизация тестирования. Полный курс")
+@Feature("9.1 Ускорение тестов")
 public class MockedApiTest {
     static Playwright playwright;
     static Browser browser;
@@ -36,6 +42,8 @@ public class MockedApiTest {
     }
 
     @Test
+    @Story("Практическое задание 28: Мокирование медленных API-запросов")
+    @Description("Тест замены медленных внешних API на мок-заглушку")
     void testUserProfileWithMockedApi() {
         // Используем мок вместо реального API
         String userData = apiService.fetchUserData();
