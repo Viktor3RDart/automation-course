@@ -1,0 +1,10 @@
+<suite name="Suite">
+    <listeners>
+        <listener class-name="customreport.CustomReportListener"/>
+    </listeners>
+    <test name="Tests">
+        <classes>
+            <class name="courseplaywtests.LoginTest"/>
+        </classes>
+    </test>
+</suite>
