@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Тестовый прогон до рефакторинга
 public class MobileDragAndDropTest {
     Playwright playwright;
     Browser browser;
